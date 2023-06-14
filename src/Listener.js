@@ -6,13 +6,15 @@ class Listener {
     this.listen = this.listen.bind(this);
   }
 
+  // method collbac untuk consume
   async listen(message) {
     try {
       const { userId, targetEmail } = JSON.parse(message.content.toString());
 
       const notes = await this._notesService.getNotes(userId);
       const result = await this._mailSender.sendEmail(targetEmail, JSON.stringify(notes));
-      console.log(result);
+
+      console.log('success');
     } catch (error) {
       console.error(error);
     }
